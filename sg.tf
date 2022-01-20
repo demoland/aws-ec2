@@ -25,7 +25,7 @@ resource "aws_security_group" "demoland_ssh" {
 }
 
 resource "aws_security_group" "demoland_consul" {
-  name        = "demoland_ssh"
+  name        = "demoland_consul"
   description = "Allow Consul inbound traffic"
   vpc_id      = local.vpc_id
 
