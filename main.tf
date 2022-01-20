@@ -2,6 +2,7 @@ locals {
   public_subnet_0 = element(data.terraform_remote_state.vpc.outputs.public_subnet_ids, 0)
  vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
  ami_id         = "ami-0730adff5a378dbfc" 
+ my_ip = "208.72.79.146/32"
 }
 
 resource "aws_key_pair" "management_key" {
@@ -16,7 +17,7 @@ module "ssh-sg" {
   description = "Security group for user ssh "
   vpc_id      = local.vpc_id
 
-  ingress_cidr_blocks      = ["10.27.0.0/16"]
+  ingress_cidr_blocks      = ["10.27.0.0/16", local.my_ip ]
   ingress_rules = ["ssh-tcp", "https-443-tcp"]
 }
 
