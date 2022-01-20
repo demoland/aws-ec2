@@ -4,11 +4,11 @@ resource "aws_security_group" "demoland_ssh" {
   vpc_id      = local.vpc_id
 
   ingress {
-    description      = "TLS from VPC"
-    from_port        = 22 
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = [aws_vpc.main.cidr_block, local.my_ip]
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [local.cidr_block, local.my_ip]
   }
 
   egress {
