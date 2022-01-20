@@ -10,16 +10,17 @@ resource "aws_key_pair" "management_key" {
   public_key = var.management_pubkey
 }
 
-module "ssh-sg" {
-  source = "terraform-aws-modules/security-group/aws"
+// module "ssh-sg" {
+//   source = "terraform-aws-modules/security-group/aws"
 
-  name        = "user-ssh"
-  description = "Security group for user ssh "
-  vpc_id      = local.vpc_id
+//   name        = "user-ssh"
+//   description = "Security group for user ssh "
+//   vpc_id      = local.vpc_id
 
-  ingress_cidr_blocks      = ["10.27.0.0/16", local.my_ip ]
-  ingress_rules = ["ssh-tcp", "https-443-tcp"]
-}
+//   ingress_cidr_blocks      = ["10.27.0.0/16", local.my_ip ]
+//   ingress_rules = ["ssh-tcp", "https-443-tcp"]
+// }
+
 
 
 module "ec2_instance" {
@@ -32,7 +33,7 @@ module "ec2_instance" {
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.management_key.key_name
   monitoring             = true
-  vpc_security_group_ids = [module.ssh-sg.security_group_id]
+  vpc_security_group_ids = [aws_security_group.demoland_ssh.id]
   subnet_id              = local.public_subnet_0
   associate_public_ip_address = true
 }
