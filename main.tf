@@ -1,5 +1,5 @@
 locals {
-  priv_subnet_0 = element(data.terraform_remote_state.vpc.outputs.private_subnet_ids, 0)
+  public_subnet_0 = element(data.terraform_remote_state.vpc.outputs.public_subnet_ids, 0)
  vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
  ami_id         = "ami-0730adff5a378dbfc" 
 }
@@ -32,6 +32,6 @@ module "ec2_instance" {
   key_name               = aws_key_pair.management_key.key_name
   monitoring             = true
   vpc_security_group_ids = [module.ssh-sg.security_group_id]
-  subnet_id              = local.priv_subnet_0
+  subnet_id              = local.public_subnet_0
   associate_public_ip_address = true
 }
