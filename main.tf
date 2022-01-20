@@ -14,7 +14,7 @@ module "ec2_instance" {
   instance_type               = "t2.micro"
   key_name                    = aws_key_pair.management_key.key_name
   monitoring                  = true
-  vpc_security_group_ids      = [aws_security_group.demoland_ssh.id, aws_security_group.demoland_consul.id]
+  vpc_security_group_ids      = [aws_security_group.demoland_ssh.ami_id]
   subnet_id                   = local.public_subnet_0
   associate_public_ip_address = true
 }
